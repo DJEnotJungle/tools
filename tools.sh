@@ -3,6 +3,8 @@
 ########################################
 K_GET_IP="--get_ip"
 K_NEW_DAY="--new_day"
+K_WIFI="--wifi"
+K_PROSHIVOCHKA="--proshivochka"
 K_PROVERKA="--proverka"
 K_CHECKB="--checkb"
 K_MONKEY_FON="--monkey_fon"
@@ -76,6 +78,8 @@ Simple cli helper for android client.
 Default: build, install apk and launch main activity.
   ${K_GET_IP}
   ${K_NEW_DAY}
+  ${K_WIFI}
+  ${K_PROSHIVOCHKA}
   ${K_PROVERKA}
   ${K_CHECKB}
   ${K_MONKEY_FON}
@@ -120,6 +124,24 @@ get_ip(){
 new_day(){
 	n=$(date +%x)
 	mkdir $n
+}
+
+wifi(){
+  echo "starting wi-fi settings"
+    adb shell am start -a android.settings.WIFI_SETTINGS
+}
+
+proshivochka(){
+  shum
+  echo "Store"
+    adb shell dumpsys package abox.store.client| grep -i versionName
+  sleep 1
+  shum
+  echo "Atlas"
+    adb shell dumpsys package com.family.atlas.launcher| grep -i versionName
+  sleep 1
+  shum
+    getprop
 }
 
 proverka(){
@@ -773,6 +795,14 @@ connect_more_ip(){
 	    	 new_day
 	    	 shift 1
 	    	  ;;
+        ${K_WIFI})
+             wifi
+             shift 1
+              ;;
+        ${K_PROSHIVOCHKA})
+             proshivochka
+             shift 1
+              ;;
 	    ${K_PROVERKA})
 	         proverka
 	         shift 1
