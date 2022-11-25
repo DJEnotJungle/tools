@@ -810,7 +810,7 @@ connect_more_ip(){
 	    ${K_CHECKB})
 	    	 checkb
 	    	 shift 1
-	    	 ;;
+	    	  ;;
 	    ${K_MONKEY_FON})
 	    	 monkey_fon
 	    	 shift 1
@@ -818,95 +818,95 @@ connect_more_ip(){
 	    ${K_MONKEY_RESULT})
 	    	 monkey_result
 	    	 shift 1
-	    	 ;;
+	    	  ;;
 	    ${K_TETS_FUN})
 	         test_fun
 	         shift 1
-	         ;;
-	    ${K_CONNECT})
-	          connect
-	    	    shift 1
-	    	    ;;
-	    ${K_BIG_BAD_MONKEY})
-	    	  big_bad_monkey
-	    	    shift 1
-	    	    ;;
-	    ${K_DISCONNECT})
-	          disconnect
-	          shift 1
 	          ;;
-      ${K_CONNECT2ALL_SEND_BROADCAST})
-            connect2all_send_broadcast
-            shift 1
-            ;;
+	    ${K_CONNECT})
+	         connect
+	    	 shift 1
+	    	  ;;
+	    ${K_BIG_BAD_MONKEY})
+	    	 big_bad_monkey
+	    	 shift 1
+	    	  ;;
+	    ${K_DISCONNECT})
+	         disconnect
+	         shift 1
+	          ;;
+        ${K_CONNECT2ALL_SEND_BROADCAST})
+             connect2all_send_broadcast
+             shift 1
+              ;;
         ${K_UNINST})
-            uninstall_apk
-            shift 1
-            ;;
+             uninstall_apk
+             shift 1
+              ;;
         ${K_UNINST_DIFF})
-            uninstall_pack_apk
-            shift 1
-            ;;
+             uninstall_pack_apk
+             shift 1
+               ;;
         ${K_INSTALL_PAK})
-            install_pack_apk
-            shift 1
-            ;;
+             install_pack_apk
+             shift 1
+              ;;
         ${K_UNINST_PAK})
-            uninstall_pack_apk
-            shift 1
-            ;;
+             uninstall_pack_apk
+             shift 1
+              ;;
         ${K_SEND})
-            send_broadcast_store_client
-            shift 1
-            ;;
-          ${K_GETPROP})
-            getprop
-            shift 1
-            ;;
+             send_broadcast_store_client
+             shift 1
+              ;;
+        ${K_GETPROP})
+             getprop
+             shift 1
+              ;;
         ${K_STOP_APP})
-            stop_app
-            shift 1
-            ;;
+             stop_app
+             shift 1
+              ;;
         ${K_LOGCAT})
-            get_logcat
-            shift 1
-            ;;
-	${K_OPEN_FACT})
-            open_factory
-            shift 1
-            ;;
+             get_logcat
+             shift 1
+              ;;
+	    ${K_OPEN_FACT})
+             open_factory
+             shift 1
+              ;;
         ${K_SCREEN})
-            screen
-            shift 1
-            ;;
+             screen
+             shift 1
+              ;;
         ${K_GET_NAME})
-            get_app_name
-            shift 1
-            ;;
+             get_app_name
+             shift 1
+              ;;
         ${K_GET_VERS})
-            get_app_name_version
-            shift 1
-            ;;
+             get_app_name_version
+             shift 1
+              ;;
         ${K_RFAV})
-            readfromapkversion
-            shift 1
-            ;;
+             readfromapkversion
+             shift 1
+              ;;
         ${K_DIFF_VERSION})
-            check_apps_version_vs
-            shift 1
-            ;;
+             check_apps_version_vs
+             shift 1
+              ;;
         ${K_CLEAR_DATA})
-            clear_data
-            shift 1
-            ;;
+             clear_data
+             shift 1
+              ;;
         ${K_MONKEY})
-            monkey_test
-            shift 1
-            ;;
+             monkey_test
+             shift 1
+              ;;
         ${K_FIND})
-            find_on_android
-            shift 1
-            ;;
+             find_on_android
+             shift 1
+              ;;
 	    *)
  #	      >&2
 	      echo "Unknown argument: $arg"
