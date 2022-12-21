@@ -457,7 +457,7 @@ connect2all_send_broadcast(){
 	#adb shell dumpsys package abox.store.client| grep -i versionName
 	#sleep 1
 	#shum
-	#echo -n "Чистка cash:"
+    #echo -n "Чистка cash:"
 	#adb shell pm clear abox.store.client
 	#sleep 1
 	#open_factory 2>/dev/null 1>/dev/null
@@ -693,9 +693,9 @@ uninstall_diff_apk(){
 uninstall_pack_apk(){
     for APK in $(cat ${MODULES_UNINSTALL}); do
             echo "Uninstalling apk ${APK}"
-            adb shell pm uninstall -k ${APK}
+            adb shell pm uninstall -k ${APK} 2> /dev/null
             if [ $? -ne 0 ] ; then
-        echo "Failed to install ${APK}"
+        echo "Failed to unistall ${APK}"
     fi
 
     done
