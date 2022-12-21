@@ -110,15 +110,42 @@ EOF
 }
 
 get_ip(){
-  echo -n "В какой сети искать?172.17.10.100-200    :"
-    read RANGE
-  echo -n "Порт?\"5555\"   :"
-    read PORT
- cat /dev/null > ${WHITELIST}    
-   sleep 1
- nmap -p ${PORT:="5555"} -n ${RANGE:=172.17.10.100-200} --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
-  echo "Список ip адресов с открытым портом ${PORT:="5555"}"
- cat ~/.tool/list_ip.txt
+    PS3='В какой сети ищем?'
+    choose=("Ищем в боевой сети" "Ищем в тестовой сети" "Ввести самостоятельно")
+    select opt in "${choose[@]}"
+    do
+        case $opt in
+            "Ищем в боевой сети")
+                cat /dev/null > ${WHITELIST}    
+                sleep 1
+                nmap -p 5555 -n 192.168.0.100-200 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
+                echo "Список ip адресов с открытым портом ${PORT:="5555"}"
+                cat ~/.tool/list_ip.txt
+            ;;
+            "Ищем в тестовой сети")               
+                cat /dev/null > ${WHITELIST}    
+                sleep 1
+                nmap -p 5555 -n 172.17.10.100-200 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
+                echo "Список ip адресов с открытым портом ${PORT:="5555"}"
+                cat ~/.tool/list_ip.txt
+            ;;
+            "Ввести самостоятельно")
+                echo -n "В какой сети искать?192.168.0.100-200    :"
+                read RANGE
+                echo -n "Порт?\"5555\"   :"
+                read PORT
+                cat /dev/null > ${WHITELIST}    
+                sleep 1
+                nmap -p ${PORT:="5555"} -n ${RANGE:=192.168.0.100-200} --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
+                echo "Список ip адресов с открытым портом ${PORT:="5555"}"
+                cat ~/.tool/list_ip.txt
+            ;;
+            "Выход")
+                break
+            ;;
+        *) echo "Запрос не распознан $REPLY";;
+    esac
+done
 }
 
 new_day(){
