@@ -110,26 +110,28 @@ EOF
 }
 
 get_ip(){
-    PS3='В какой сети ищем?'
-    choose=("Ищем в боевой сети" "Ищем в тестовой сети" "Ввести самостоятельно")
+    PS3='В какой сети ищем? '
+    choose=("Боевая сеть" "Тестовая сеть" "Произвольная сеть" "Выход")
     select opt in "${choose[@]}"
     do
         case $opt in
-            "Ищем в боевой сети")
+            "Боевая сеть")
                 cat /dev/null > ${WHITELIST}    
                 sleep 1
                 nmap -p 5555 -n 192.168.0.100-200 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
                 echo "Список ip адресов с открытым портом ${PORT:="5555"}"
                 cat ~/.tool/list_ip.txt
+                break
             ;;
-            "Ищем в тестовой сети")               
+            "Тестовая сеть")               
                 cat /dev/null > ${WHITELIST}    
                 sleep 1
                 nmap -p 5555 -n 172.17.10.100-200 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
                 echo "Список ip адресов с открытым портом ${PORT:="5555"}"
                 cat ~/.tool/list_ip.txt
+                break
             ;;
-            "Ввести самостоятельно")
+            "Произвольная сеть")
                 echo -n "В какой сети искать?192.168.0.100-200    :"
                 read RANGE
                 echo -n "Порт?\"5555\"   :"
@@ -139,11 +141,12 @@ get_ip(){
                 nmap -p ${PORT:="5555"} -n ${RANGE:=192.168.0.100-200} --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
                 echo "Список ip адресов с открытым портом ${PORT:="5555"}"
                 cat ~/.tool/list_ip.txt
+                break
             ;;
             "Выход")
                 break
             ;;
-        *) echo "Запрос не распознан $REPLY";;
+        *) echo "Запрос не распознан $REPLY";;  
     esac
 done
 }
