@@ -13,6 +13,7 @@ K_TETS_FUN="--test_fun"
 K_CONNECT="--connect"
 K_BIG_BAD_MONKEY="--big_bad_monkey"
 K_DISCONNECT="--disconnect"
+K_ALL_STORE_TEST="--all_store_test"
 K_CONNECT2ALL_SEND_BROADCAST="--connect2all_send_broadcast"
 K_GETPROP="--getprop"
 K_INSTALL_PAK="--install_pack_apk"
@@ -32,7 +33,7 @@ K_MONKEY="--monkey_test"
 K_CLEAR_DATA="--clear_data"
 K_RFAV="--readfromapkversion"
 K_HELP="--help"
-ALL_KEYWORDS=("${K_RFAV}" "${K_GETPROP}" "${K_TETS_FUN}" "${K_GET_IP}" "${K_NEW_DAY}" "${K_PROVERKA}" "${K_CHECKB}" "${K_MONKEY_FON}" "${K_MONKEY_RESULT}" "${K_MONKEY}" "${K_CONNECT}" "${K_BIG_BAD_MONKEY}" "${K_DISCONNECT}" "${K_CONNECT2ALL_SEND_BROADCAST}" "${K_INSTALL_PAK}" "${K_LOGCAT}" "${K_OPEN_FACT}" "${K_UNINST}" "${K_UNINST_PAK}" "${K_UNINST_DIFF}" "${K_SEND}" "${K_STOP_APP}" "${K_GET_NAME}" "$K_SCREEN" "${K_GET_VERS}" "${K_DIFF_VERSION}" "${K_CLEAR_DATA}" "${K_FIND}" "${K_HELP}")
+ALL_KEYWORDS=("${K_RFAV}" "${K_GETPROP}" "${K_TETS_FUN}" "${K_GET_IP}" "${K_NEW_DAY}" "${K_PROVERKA}" "${K_CHECKB}" "${K_MONKEY_FON}" "${K_MONKEY_RESULT}" "${K_MONKEY}" "${K_CONNECT}" "${K_BIG_BAD_MONKEY}" "${K_DISCONNECT}" "${K_ALL_STORE_TEST}" "${K_CONNECT2ALL_SEND_BROADCAST}" "${K_INSTALL_PAK}" "${K_LOGCAT}" "${K_OPEN_FACT}" "${K_UNINST}" "${K_UNINST_PAK}" "${K_UNINST_DIFF}" "${K_SEND}" "${K_STOP_APP}" "${K_GET_NAME}" "$K_SCREEN" "${K_GET_VERS}" "${K_DIFF_VERSION}" "${K_CLEAR_DATA}" "${K_FIND}" "${K_HELP}")
 
 ###################Проверки темповых файлов#####################
 
@@ -88,6 +89,7 @@ Default: build, install apk and launch main activity.
   ${K_CONNECT}
   ${K_BIG_BAD_MONKEY}
   ${K_DISCONNECT}
+  ${K_ALL_STORE_TEST}
   ${K_CONNECT2ALL_SEND_BROADCAST}
   ${K_GETPROP}
   ${K_INSTALL_PAK}
@@ -248,125 +250,7 @@ monkey_result(){
 
 #тест функция
 test_fun(){
-    #допилить под скрипт
-    package=$(aapt dump badging "$*" | awk '/package/{gsub("name=|'"'"'","");  print $2}')
-    activity=$(aapt dump badging "$*" | awk '/activity/{gsub("name=|'"'"'","");  print $2}')
-    echo
-    echo "APK : $1"
-    echo "Имя Пакета : $package"
-    echo "Activity: $activity"echo -n "i'm work"
-	#PS3='Сделай выбор: '
-	#options=("Высадка" "Подбор" "Выход")
-	#select opt in "${options[@]}"
-	#do
-	    #case $opt in
- 	       #"Высадка") 	       
-			#for IPS in ${IP}; do
-          		  #adb disconnect 2> /dev/null 1> /dev/null
-          		  #echo ""
-        		    #timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
-        		    #sleep 1
-        		    #if [ $? -ne 0 ] ; then
-         		   	#sleep 1
-				#echo "Failed to connect ${IPS}"
-			    #fi
-			    	#echo "Connected to ${IPS}"
-			    	#rm /home/enot/.tool/monkey_test_pack_apk.sh
-			#echo -n "Очистка monkey_apk.log : "
-			#adb shell rm /mnt/sdcard/monkey_apk.log 2>/dev/null
-			#checkb
-			#sleep 1
-			#echo -n "Очистка monkey_test_pack_apk.sh : "
-			#adb shell rm /mnt/sdcard/monkey_test_pack_apk.sh 2>/dev/null
-			#checkb
-			#sleep 1
-			#echo -n "Очистка logcat_apk.log: "
-			#adb shell rm /mnt/sdcard/logcat_apk.log 2>/dev/null
-			#checkb
-			#sleep 1
- ###########################################################################################################
-				#if [[ "android_get_installed_packages.sh | grep "tv.okko.androidtv"" == "tv.okko.androidtv" ]]; then 	
-				#echo "Пакет tv.okko.androidtv отсутствует"
-			   #else
-				#echo "logcat > /mnt/sdcard/logcat.log &" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "monkey -p tv.okko.androidtv --pct-touch 0 --pct-motion 0 --pct-nav 70 --pct-majornav 10 --pct-syskeys 10 --pct-appswitch 10 --ignore-security-exceptions --throttle 100  -vv 1000 > /mnt/sdcard/monkey.log" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "pidof logcat" >> /home/enot/.tool/monkey_test_pack_apk.sh
-			   #fi
- ###########################################################################################################			   
-				#if [[ "android_get_installed_packages.sh | grep "ru.ivi.client"" == "ru.ivi.client" ]]; then 	
-				#echo "Пакет ru.ivi.client отсутствует"
-			    #else
-				#echo "logcat > /mnt/sdcard/logcat.log &" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "monkey -p ru.ivi.client --pct-touch 0 --pct-motion 0 --pct-nav 70 --pct-majornav 10 --pct-syskeys 10 --pct-appswitch 10 --ignore-security-exceptions --throttle 100  -vv 1000 > /mnt/sdcard/monkey.log" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "pidof logcat" >> /home/enot/.tool/monkey_test_pack_apk.sh
-			    #fi
- ###########################################################################################################
-				#if [[ "android_get_installed_packages.sh | grep "ru.start.androidtv"" == "ru.start.androidtv" ]]; then 	
-				#echo "Пакет ru.start.androidtv отсутствует"
-			    #else
-				#echo "logcat > /mnt/sdcard/logcat.log &" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "monkey -p ru.start.androidtv --pct-touch 0 --pct-motion 0 --pct-nav 70 --pct-majornav 10 --pct-syskeys 10 --pct-appswitch 10 --ignore-security-exceptions --throttle 100  -vv 1000 > /mnt/sdcard/monkey.log" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "pidof logcat" >> /home/enot/.tool/monkey_test_pack_apk.sh
-			    #fi
- ###########################################################################################################
-			    #if [[ "android_get_installed_packages.sh | grep "ag.tv.a24h"" == "ag.tv.a24h" ]]; then 	
-				#echo "Пакет ag.tv.a24h отсутствует"
-			    #else
-				#echo "logcat > /mnt/sdcard/logcat.log &" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "monkey -p ag.tv.a24h --pct-touch 0 --pct-motion 0 --pct-nav 70 --pct-majornav 10 --pct-syskeys 10 --pct-appswitch 10 --ignore-security-exceptions --throttle 100  -vv 1000 > /mnt/sdcard/monkey.log" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "pidof logcat" >> /home/enot/.tool/monkey_test_pack_apk.sh
-			    #fi
- ###########################################################################################################
-				#if [[ "android_get_installed_packages.sh | grep "ru.rt.video.app.tv"" == "ru.rt.video.app.tv" ]]; then 	
-				#echo "Пакет ru.rt.video.app.tv отсутствует"
-			    #else
-				#echo "logcat > /mnt/sdcard/logcat.log &" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "monkey -p ru.rt.video.app.tv --pct-touch 0 --pct-motion 0 --pct-nav 70 --pct-majornav 10 --pct-syskeys 10 --pct-appswitch 10 --ignore-security-exceptions --throttle 100  -vv 1000 > /mnt/sdcard/monkey.log" >> /home/enot/.tool/monkey_test_pack_apk.sh
-				#echo "pidof logcat" >> /home/enot/.tool/monkey_test_pack_apk.sh
-			    #fi
- ###########################################################################################################
-		    	#echo -n "Sending script :"
-		    	#adb push /home/enot/.tool/monkey_test_pack_apk.sh /mnt/sdcard/ 
-		    	#checkb
-		    	#sleep 1
-		        #echo -n "Фоновой запуск скрипта : "
-		    	#adb shell sh /mnt/sdcard/monkey_test_pack_apk.sh 
-		    	#checkb
-		    	#sleep 1		   
-		    	#done
-     		    #disconnect
-       	        #;;
-    	        #"Подбор")
-         	  
-			#for IPS in ${IP}; do
-          		  #adb disconnect 2> /dev/null 1> /dev/null
-          		  #echo ""
-        		    #timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
-        		    #sleep 1
-        		    #if [ $? -ne 0 ] ; then
-         		   	#sleep 1
-				#echo "Failed to connect ${IPS}"
-			    #fi
-			    	#echo "Connected to ${IPS}"
-			    #echo -n "TEST RESULT :"
-			    #adb shell cat /mnt/sdcard/monkey_apk.log  | grep  -E "(Events injected:|// Monkey finished)" 1>/dev/null 2>/dev/null
-		  	    #if [ $? -ne 0 ] ; then
-        			#echo "Failed"
-        			#adb shell cat /mnt/sdcard/monkey_apk.log | sed -e '100,$p'
-        			#adb pull /mnt/sdcard/logcat_apk.log 2>/dev/null &
-        		    #else
-        			#echo "Success"
-    			    #fi	
-			#done
-   			#disconnect
-         	  
-	       #;;
-	        #"Выход")
-            #break
-            #;;
-        #*) echo "Поясника за $REPLY";;
-    #esac
-    #done
+    echo "сделай блятский визуал"
 }	
 
 #подключение adb connect
@@ -422,6 +306,185 @@ big_bad_monkey(){
 done
    }
 
+#Все кейсы теста стора с возможностью выбора оных
+all_store_test(){
+    PS3='Сделай выбор Нео: '
+    options=("Сбор info" "Подготовка устройств" "Кейс 1/4" "Кейс 2" "Выход")
+    select opt in "${options[@]}"
+    do 
+        case $opt in
+            "Сбор info")
+                for IPS in ${IP}; do
+                    adb disconnect 2> /dev/null 1> /dev/null
+                    echo ""
+                    timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
+                    sleep 1
+                    if [ $? -ne 0 ] ; then
+            	        sleep 1
+		                echo "Failed to connect ${IPS}"
+	                fi 
+	    	            echo "Connected to ${IPS}"
+                        ##########################
+                        echo -n
+                        sleep 1
+                        shum
+                        sleep 1
+                        echo -n "Текущий:"
+                        sleep 1
+	                    adb shell dumpsys package abox.store.client| grep -i versionName
+                        sleep 1
+                        echo -n
+	                    sleep 1
+	                    shum
+                        sleep 1
+                        getprop
+                        sleep 1
+                        shum
+                        sleep 1
+                        echo -n
+                        ##########################
+                done
+                disconnect
+                break
+                ;;
+
+            "Подготовка устройств")
+                for IPS in ${IP}; do
+                    adb disconnect 2> /dev/null 1> /dev/null
+                    echo ""
+                    timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
+                    sleep 1
+                    if [ $? -ne 0 ] ; then
+            	        sleep 1
+		                echo "Failed to connect ${IPS}"
+	                fi 
+	    	            echo "Connected to ${IPS}"
+                        ##########################
+                        echo -n
+                        sleep 1
+	                    shum
+	                    echo "Текущий:"
+	                    adb shell dumpsys package abox.store.client| grep -i versionName
+	                    sleep 1
+	                    shum
+	                    getprop
+                        sleep 1
+	                    shum
+                        echo "Удаляю apk:"
+                        uninstall_pack_apk
+                        sleep 1
+                        shum
+	                    echo "Установленный:"
+	                    adb shell dumpsys package abox.store.client| grep -i versionName
+	                    sleep 1
+	                    shum
+                        echo -n "Чистка cash:"
+	                    adb shell pm clear abox.store.client
+	                    sleep 1
+	                    open_factory 2>/dev/null 1>/dev/null
+	                    sleep 5
+	                    adb shell reboot
+                        ##########################
+                done
+                disconnect
+                break
+                ;;
+
+            "Кейс 1/4")
+                for IPS in ${IP}; do
+                    adb disconnect 2> /dev/null 1> /dev/null
+                    echo ""
+                    timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
+                    sleep 1
+                    if [ $? -ne 0 ] ; then
+            	        sleep 1
+		                echo "Failed to connect ${IPS}"
+	                fi 
+	    	            echo "Connected to ${IPS}"
+                        ##########################
+                        sleep 1 
+                        shum
+                        echo "Текущий:"
+	                    adb shell dumpsys package abox.store.client| grep -i versionName
+                        sleep 1 
+                        shum 
+                        getprop
+                        sleep 1 
+                        shum
+                        shum
+                        echo "Удаляю стор:"
+                        adb uninstall abox.store.client
+                        sleep 1 
+                        shum
+                        echo "Устанавливаем стор:"
+                        adb install -r /home/enot/.tool/abox.store_20191226_f9dc3adc5352ab82f2959a90fc3f9b6b_sys.apk
+                        sleep 1
+                        shum
+                        echo "Текущий:"
+                        adb shell dumpsys package abox.store.client| grep -i versionName
+                        shum
+                        adb shell reboot
+                        ##########################
+                done
+                disconnect
+                break
+                ;;
+
+            "Кейс 2")
+                echo "Перейдите в папку с раздающимся стором и введите название файла"
+                read APK_NAME
+                sleep 1
+                for IPS in ${IP}; do
+                    adb disconnect 2> /dev/null 1> /dev/null
+                    echo ""
+                    timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
+                    sleep 1
+                    if [ $? -ne 0 ] ; then
+            	        sleep 1
+		                echo "Failed to connect ${IPS}"
+	                fi 
+	    	            echo "Connected to ${IPS}"
+                        ##########################
+                        sleep 1 
+                        shum
+                        echo "Текущий:"
+	                    adb shell dumpsys package abox.store.client| grep -i versionName
+                        sleep 1 
+                        shum 
+                        getprop
+                        sleep 1 
+                        shum
+                        shum
+                        echo "Удаляю стор:"
+                        adb uninstall abox.store.client
+                        sleep 1 
+                        shum
+                        echo "Устанавливаем стор:"
+                        adb install -r ${APK_NAME}
+                        sleep 1
+                        shum
+                        echo "Текущий:"
+                        adb shell dumpsys package abox.store.client| grep -i versionName
+                        shum
+                        adb shell reboot
+                        ##########################
+                done
+                disconnect
+                break
+                ;;
+
+            "Выход")
+                echo "Ты расстроил Морфиуса"
+                echo "(*μ_μ)"
+                break
+                ;;
+
+        *) echo "Это не правильная таблетка, Нео..." 
+            echo -n "(*μ_μ)"
+            echo ""
+    esac
+done
+}
 
 #подключение к ТВ по списку, отсылка broadcast, отключение
 connect2all_send_broadcast(){
@@ -432,111 +495,15 @@ connect2all_send_broadcast(){
             sleep 1
             if [ $? -ne 0 ] ; then
             	sleep 1
-		echo "Failed to connect ${IPS}"
+		    echo "Failed to connect ${IPS}"
 	    fi
 	    	echo "Connected to ${IPS}"
-  #return 0	
-########################################### установка apk и старт его
-       #adb install -r abox.statistic.apk
-       #adb shell getprop sys.wildred.hw_id
-       #sleep 2
-       #adb shell am start -n "ru.abox.myhome/abox.myhome.MainActivity"
-########################################### данные апк
-	#echo -n "Текущий старт: "
-    #adb shell dumpsys package abox.store.client| grep -i versionName
-	#echo -n
-	#sleep 1
-	#echo -n "Текущий 24: "
-	#adb shell dumpsys package abox.store.client| grep -i versionName
-	#echo -n
-	#sleep 1
-########################################### сбор info
-	echo -n
-    sleep 1
-    shum
-    sleep 1
-    echo -n "Текущий:"
-    sleep 1
-	adb shell dumpsys package abox.store.client| grep -i versionName
-    sleep 1
-    echo -n
-	sleep 1
-	shum
-    sleep 1
-    getprop
-    sleep 1
-    shum
-    sleep 1
-    echo -n
-########################################### подготовка к тесту abox.store.client
-	#echo -n
-    #sleep 1
-	#shum
-	#echo "Текущий:"
-	#adb shell dumpsys package abox.store.client| grep -i versionName
-	#sleep 1
-	#shum
-	#getprop
-    #sleep 1
-	#shum
-    #echo "Удаляю apk:"
-    #uninstall_pack_apk
-    #sleep 1
-    #shum
-	#echo "Установленный:"
-	#adb shell dumpsys package abox.store.client| grep -i versionName
-	#sleep 1
-	#shum
-    #echo -n "Чистка cash:"
-	#adb shell pm clear abox.store.client
-	#sleep 1
-	#open_factory 2>/dev/null 1>/dev/null
-	#sleep 5
-	#adb shell reboot
-########################################### кейс 1
-    #sleep 1 
-    #shum
-    #echo "Текущий:"
-	#adb shell dumpsys package abox.store.client| grep -i versionName
-    #sleep 1 
-    #shum 
-    #getprop
-    #sleep 1 
-    #shum
-    #shum
-    #echo "Удаляю стор:"
-    #adb uninstall abox.store.client
-    #sleep 1 
-    #shum
-    #echo "Устанавливаем стор:"
-    #adb install -r abox.store_20220428_f9dc3adc5352ab82f2959a90fc3f9b6b_sys.apk #надо быть в папке с файлом. имя файла менять по необходимости
-    #sleep 1
-    #shum
-    #echo "Текущий:"
-    #adb shell dumpsys package abox.store.client| grep -i versionName
-    #shum
-    #adb shell reboot
-########################################### кейс 4
-    #sleep 1 
-    #shum
-    #echo "Текущий:"
-	#adb shell dumpsys package abox.store.client| grep -i versionName
-    #sleep 1 
-    #shum 
-    #getprop
-    #sleep 1 
-    #shum
-    #shum
-    #echo "Удаляю стор:"
-    #adb uninstall abox.store.client
-    #sleep 1 
-    #shum
-    #echo "Текущий:"
-    #adb shell dumpsys package abox.store.client| grep -i versionName
-    #sleep 1
-    #shum
-    #adb shell reboot
-    
+            #return 0	
+            ########################################### установка apk и старт его
+            adb install -r abox.statistic.apk
+            adb shell getprop sys.wildred.hw_id
+            sleep 2
+            adb shell am start -n "ru.abox.myhome/abox.myhome.MainActivity"
     done
     disconnect
 }
@@ -865,6 +832,10 @@ connect_more_ip(){
 	         disconnect
 	         shift 1
 	          ;;
+        ${K_ALL_STORE_TEST})
+             all_store_test
+             shift 1
+              ;;
         ${K_CONNECT2ALL_SEND_BROADCAST})
              connect2all_send_broadcast
              shift 1
