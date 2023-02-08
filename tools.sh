@@ -4,6 +4,7 @@
 K_GET_IP="--get_ip"
 K_NEW_DAY="--new_day"
 K_WIFI="--wifi"
+K_DPI="--dpi"
 K_PROSHIVOCHKA="--proshivochka"
 K_PROVERKA="--proverka"
 K_CHECKB="--checkb"
@@ -80,6 +81,7 @@ Default: build, install apk and launch main activity.
   ${K_GET_IP}
   ${K_NEW_DAY}
   ${K_WIFI}
+  ${K_DPI}
   ${K_PROSHIVOCHKA}
   ${K_PROVERKA}
   ${K_CHECKB}
@@ -118,15 +120,15 @@ get_ip(){
     do
         case $opt in
             "Боевая сеть")
-                cat /dev/null > ${WHITELIST}    
+                cat /dev/null > ${WHITELIST}
                 sleep 1
                 nmap -p 5555 -n 192.168.0.100-200 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
                 echo "Список ip адресов с открытым портом ${PORT:="5555"}"
                 cat ~/.tool/list_ip.txt
                 break
             ;;
-            "Тестовая сеть")               
-                cat /dev/null > ${WHITELIST}    
+            "Тестовая сеть")
+                cat /dev/null > ${WHITELIST}
                 sleep 1
                 nmap -p 5555 -n 172.17.10.100-200 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
                 echo "Список ip адресов с открытым портом ${PORT:="5555"}"
@@ -138,7 +140,7 @@ get_ip(){
                 read RANGE
                 echo -n "Порт?\"5555\"   :"
                 read PORT
-                cat /dev/null > ${WHITELIST}    
+                cat /dev/null > ${WHITELIST}
                 sleep 1
                 nmap -p ${PORT:="5555"} -n ${RANGE:=192.168.0.100-200} --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
                 echo "Список ip адресов с открытым портом ${PORT:="5555"}"
@@ -148,7 +150,7 @@ get_ip(){
             "Выход")
                 break
             ;;
-        *) echo "Запрос не распознан $REPLY";;  
+        *) echo "Запрос не распознан $REPLY";;
     esac
 done
 }
@@ -161,6 +163,12 @@ new_day(){
 wifi(){
   echo "starting wi-fi settings"
     adb shell am start -a android.settings.WIFI_SETTINGS
+}
+
+dpi(){
+  echo "Получение dpi:"
+    adb shell getprop |grep -E "(ro.sf.lcd_density)"
+# > ~/.tool/${IPS}.txt
 }
 
 proshivochka(){
@@ -182,16 +190,16 @@ proverka(){
  clear
   for (( i=0; i<10; ++i)); do
    cat /dev/null >${TEXT_MON}
-   monitor >>${TEXT_MON} 
+   monitor >>${TEXT_MON}
    clear
    date
    cat ${TEXT_MON}
   sleep 1
-  shum  
+  shum
   echo "Жду ${INTERVAL} секунд"
   shum
   sleep ${INTERVAL}
-  
+
 done
 }
 
@@ -245,13 +253,13 @@ monkey_result(){
  echo -n "TEST RESULT :"
  adb pull /mnt/sdcard/monkey.log
  tail '/home/enot/Рабочий стол/DJUF1N/2022/August/10.08.2022/monkey.log'
-}   
+}
 
 
 #тест функция
 test_fun(){
     echo "сделай блятский визуал"
-}	
+}
 
 #подключение adb connect
 connect(){
@@ -266,7 +274,7 @@ big_bad_monkey(){
 	select opt in "${options[@]}"
 	do
 	    case $opt in
- 	       "Высадка") 	       
+ 	       "Высадка")
 			for IPS in ${IP}; do
           		  adb disconnect 2> /dev/null 1> /dev/null
           		  echo ""
@@ -282,7 +290,7 @@ big_bad_monkey(){
    			disconnect
      	       ;;
   	       "Подбор")
-         	  
+
 			for IPS in ${IP}; do
           		  adb disconnect 2> /dev/null 1> /dev/null
           		  echo ""
@@ -293,10 +301,10 @@ big_bad_monkey(){
 				echo "Failed to connect ${IPS}"
 			    fi
 			    	echo "Connected to ${IPS}"
-			    monkey_result	
+			    monkey_result
 			done
    			disconnect
-         	  
+
 	       ;;
 	        "Выход")
             break
@@ -311,7 +319,7 @@ all_store_test(){
     PS3='Сделай выбор Нео: '
     options=("Сбор info" "Подготовка устройств" "Кейс 1/4" "Кейс 2" "Выход")
     select opt in "${options[@]}"
-    do 
+    do
         case $opt in
             "Сбор info")
                 for IPS in ${IP}; do
@@ -322,7 +330,7 @@ all_store_test(){
                     if [ $? -ne 0 ] ; then
             	        sleep 1
 		                echo "Failed to connect ${IPS}"
-	                fi 
+	                fi
 	    	            echo "Connected to ${IPS}"
                         ##########################
                         echo -n
@@ -357,7 +365,7 @@ all_store_test(){
                     if [ $? -ne 0 ] ; then
             	        sleep 1
 		                echo "Failed to connect ${IPS}"
-	                fi 
+	                fi
 	    	            echo "Connected to ${IPS}"
                         ##########################
                         echo -n
@@ -399,22 +407,22 @@ all_store_test(){
                     if [ $? -ne 0 ] ; then
             	        sleep 1
 		                echo "Failed to connect ${IPS}"
-	                fi 
+	                fi
 	    	            echo "Connected to ${IPS}"
                         ##########################
-                        sleep 1 
+                        sleep 1
                         shum
                         echo "Текущий:"
 	                    adb shell dumpsys package abox.store.client| grep -i versionName
-                        sleep 1 
-                        shum 
+                        sleep 1
+                        shum
                         getprop
-                        sleep 1 
+                        sleep 1
                         shum
                         shum
                         echo "Удаляю стор:"
                         adb uninstall abox.store.client
-                        sleep 1 
+                        sleep 1
                         shum
                         echo "Устанавливаем стор:"
                         adb install -r /home/enot/.tool/abox.store_20191226_f9dc3adc5352ab82f2959a90fc3f9b6b_sys.apk
@@ -442,22 +450,22 @@ all_store_test(){
                     if [ $? -ne 0 ] ; then
             	        sleep 1
 		                echo "Failed to connect ${IPS}"
-	                fi 
+	                fi
 	    	            echo "Connected to ${IPS}"
                         ##########################
-                        sleep 1 
+                        sleep 1
                         shum
                         echo "Текущий:"
 	                    adb shell dumpsys package abox.store.client| grep -i versionName
-                        sleep 1 
-                        shum 
+                        sleep 1
+                        shum
                         getprop
-                        sleep 1 
+                        sleep 1
                         shum
                         shum
                         echo "Удаляю стор:"
                         adb uninstall abox.store.client
-                        sleep 1 
+                        sleep 1
                         shum
                         echo "Устанавливаем стор:"
                         adb install -r ${APK_NAME}
@@ -479,7 +487,7 @@ all_store_test(){
                 break
                 ;;
 
-        *) echo "Это не правильная таблетка, Нео..." 
+        *) echo "Это не правильная таблетка, Нео..."
             echo -n "(*μ_μ)"
             echo ""
     esac
@@ -498,7 +506,7 @@ connect2all_send_broadcast(){
 		    echo "Failed to connect ${IPS}"
 	    fi
 	    	echo "Connected to ${IPS}"
-            #return 0	
+            #return 0
             ########################################### установка apk и старт его
             adb install -r abox.statistic.apk
             adb shell getprop sys.wildred.hw_id
@@ -520,7 +528,7 @@ install_pack_apk(){
             if [ $? -ne 0 ] ; then
         echo "Failed to install ${APK}"
     fi
-    
+
   done
 }
 
@@ -602,8 +610,8 @@ get_logcat(){
     read FD
     adb shell logcat |  grep ${FD}
 }
-    
-    
+
+
 #МЕНЮ РАЗРАБОТЧИКА
 open_factory(){
  echo "Последовательный перебор всех  вариантов вызова factory_menu "
@@ -733,7 +741,7 @@ disconnect() {
     adb disconnect 2> /dev/null 1> /dev/null
      echo "Disconnect "
 }
-    
+
 monitor(){
     for IPS in ${IP}; do
             adb disconnect 2> /dev/null 1> /dev/null
@@ -748,9 +756,9 @@ monitor(){
  APP_APK=$(adb shell dumpsys package abox.store.client | grep -i versionName | awk -F"=" '{print $2}'|sed -n 1p |tr -d '\n' )
  APP_VERS=$(adb shell getprop |grep sys.wildred.hw_id | tr -d '\n' )
  echo -n "ip-address : ${IPS} "
- sleep 1 
+ sleep 1
  echo -n "abox.store.client : ${APP_APK} "
- sleep 1  
+ sleep 1
  echo  -n "HWID : ${APP_VERS} "
  sleep 1
      done
@@ -795,6 +803,10 @@ connect_more_ip(){
         ${K_WIFI})
              wifi
              shift 1
+              ;;
+        ${K_DPI})
+              dpi
+              shift 1
               ;;
         ${K_PROSHIVOCHKA})
              proshivochka
@@ -915,5 +927,3 @@ connect_more_ip(){
 	      ;;
 	  esac
 done
-
-
