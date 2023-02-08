@@ -158,6 +158,7 @@ done
 new_day(){
 	n=$(date +%x)
 	mkdir $n
+    ls
 }
 
 wifi(){
