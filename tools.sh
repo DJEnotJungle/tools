@@ -281,6 +281,9 @@ big_bad_monkey(){
           		  echo ""
         		    timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
         		    sleep 1
+                    adb root
+                    sleep 5
+                    timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
         		    if [ $? -ne 0 ] ; then
          		   	sleep 1
 				echo "Failed to connect ${IPS}"
@@ -297,6 +300,9 @@ big_bad_monkey(){
           		  echo ""
         		    timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
         		    sleep 1
+                    adb root
+                    sleep 5
+                    timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
         		    if [ $? -ne 0 ] ; then
          		   	sleep 1
 				echo "Failed to connect ${IPS}"
@@ -508,11 +514,18 @@ connect2all_send_broadcast(){
 	    fi
 	    	echo "Connected to ${IPS}"
             #return 0
-            ########################################### установка apk и старт его
-            adb install -r abox.statistic.apk
-            adb shell getprop sys.wildred.hw_id
-            sleep 2
-            adb shell am start -n "ru.abox.myhome/abox.myhome.MainActivity"
+            echo "Получение проп"
+            getprop
+            sleep 1
+            echo "Установка атлас"
+            adb install -r Atlas.Launcher-system-launcher-release-20230214.apk
+            sleep 1
+            checkb
+            sleep 1
+            echo "Сброс кэша"
+            adb shell pm clear com.family.atlas.launcher
+            sleep 1
+            checkb
     done
     disconnect
 }
