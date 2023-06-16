@@ -159,6 +159,7 @@ new_day(){
 	n=$(date +%x)
 	mkdir $n
     ls
+    cd $n
 }
 
 wifi(){
@@ -517,15 +518,6 @@ connect2all_send_broadcast(){
             echo "Получение проп"
             getprop
             sleep 1
-            echo "Установка атлас"
-            adb install -r Atlas.Launcher-system-launcher-release-20230214.apk
-            sleep 1
-            checkb
-            sleep 1
-            echo "Сброс кэша"
-            adb shell pm clear com.family.atlas.launcher
-            sleep 1
-            checkb
     done
     disconnect
 }
