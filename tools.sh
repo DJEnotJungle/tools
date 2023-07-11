@@ -236,7 +236,7 @@ monkey_fon(){
  echo -n "Версия тестируемого приложения :"
  get_app_name_version |grep "com.family.atlas.launcher"
  echo -n "Sending script :"
- adb push '/home/enot/Рабочий стол/DJUF1N/code/work/monkey.sh' /mnt/sdcard/ 1>/dev/null 2>/dev/null
+ adb push '/home/enot/.tool/monkey.sh' /mnt/sdcard/ 0>/dev/null 2>/dev/null
  checkb
  sleep 1
  echo -n "Фоновой запуск скрипта : "
