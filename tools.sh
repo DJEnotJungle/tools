@@ -159,7 +159,6 @@ new_day(){
 	n=$(date +%x)
 	mkdir $n
     ls
-    cd $n
 }
 
 wifi(){
@@ -306,7 +305,7 @@ big_bad_monkey(){
                     timeout 2 adb connect ${IPS}:5555 2> /dev/null 1> /dev/null
         		    if [ $? -ne 0 ] ; then
          		   	sleep 1
-				echo "Failed to connect ${IPS}"
+				    echo "Failed to connect ${IPS}"
 			    fi
 			    	echo "Connected to ${IPS}"
 			    monkey_result
