@@ -122,7 +122,7 @@ get_ip(){
             "Боевая сеть")
                 cat /dev/null > ${WHITELIST}
                 sleep 1
-                nmap -p 5555 -n 192.168.0.100-200 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
+                nmap -p 5555 -n 192.168.88.1-255 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
                 echo "Список ip адресов с открытым портом ${PORT:="5555"}"
                 cat ~/.tool/list_ip.txt
                 break
@@ -130,19 +130,19 @@ get_ip(){
             "Тестовая сеть")
                 cat /dev/null > ${WHITELIST}
                 sleep 1
-                nmap -p 5555 -n 172.17.10.100-200 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
+                nmap -p 5555 -n 172.17.10.1-255 --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
                 echo "Список ip адресов с открытым портом ${PORT:="5555"}"
                 cat ~/.tool/list_ip.txt
                 break
             ;;
             "Произвольная сеть")
-                echo -n "В какой сети искать?192.168.0.100-200    :"
+                echo -n "В какой сети искать?192.168.88.1-255    :"
                 read RANGE
                 echo -n "Порт?\"5555\"   :"
                 read PORT
                 cat /dev/null > ${WHITELIST}
                 sleep 1
-                nmap -p ${PORT:="5555"} -n ${RANGE:=192.168.0.100-200} --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
+                nmap -p ${PORT:="5555"} -n ${RANGE:=192.168.88.1-255} --open -oG - | awk '/Up$/{print $2}' >> ${WHITELIST}
                 echo "Список ip адресов с открытым портом ${PORT:="5555"}"
                 cat ~/.tool/list_ip.txt
                 break
@@ -159,6 +159,7 @@ new_day(){
 	n=$(date +%x)
 	mkdir $n
     ls
+    cd $n
 }
 
 wifi(){
